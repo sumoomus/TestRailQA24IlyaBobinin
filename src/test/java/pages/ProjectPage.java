@@ -38,5 +38,4 @@ public class ProjectPage extends BasePage {
         new Button(driver, addTestRunsButtonId).click();
     }
 
-
 }
