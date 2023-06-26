@@ -1,26 +1,29 @@
 package tests;
 
-import io.qameta.allure.internal.shadowed.jackson.annotation.JsonTypeInfo;
 import models.TestCase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.ProjectPage;
+import pages.AddedTestCasePage;
+import pages.TestCaseInfoPage;
 
 public class AddTestCaseTests extends BaseTest {
     @Test
     public void positiveAddTestCaseTest() {
-        TestCase actualTestCase = new TestCase();
-        actualTestCase.setTitle("pozitive test form Login");
-        actualTestCase.setSection("Test Cases");
-        actualTestCase.setTemplate("Test Case (Text)");
-        actualTestCase.setType("Other");
-        actualTestCase.setPriority("Critical");
-        actualTestCase.setEstimate("10 minutes");
-        actualTestCase.setReferences("qwe");
-        actualTestCase.setAutomationType("None");
-        actualTestCase.setPreconditions("opened form");
-        actualTestCase.setSteps("fill email. fill password. click login");
-        actualTestCase.setExpectedResult("success");
+        AddedTestCasePage addedTestCasePage = new AddedTestCasePage();
+        TestCaseInfoPage testCaseInfoPage = new TestCaseInfoPage();
+        TestCase actualTestCase = TestCase.builder()
+                .setTitle("positive login test form")
+                .setSection("Test Cases")
+                .setTemplate("Test Case (Text)")
+                .setType("Other")
+                .setPriority("Major")
+                .setEstimate("10 minutes")
+                .setReferences("qwerty")
+                .setAutomationType("None")
+                .setPreconditions("Opened form login testrail")
+                .setSteps("Fill email. Fill password. Click login")
+                .setExpectedResult("Success")
+                .build();
         String projectName = "IlyaBobininQA24";
         loginPage.logIn(EMAIL, PASSWORD);
         allProjectsPage.openProjectByName(projectName);
@@ -29,8 +32,6 @@ public class AddTestCaseTests extends BaseTest {
         addTestCasePage.clickAddTestCaseButton();
         Assert.assertTrue(addTestCasePage.isAddAnotherLinkDisplayed());
         TestCase expectedTestCase = testCaseInfoPage.getTestCaseInfo();
-        Assert.assertEquals(expectedTestCase,actualTestCase);
-
-
+        Assert.assertEquals(expectedTestCase, actualTestCase);
     }
 }

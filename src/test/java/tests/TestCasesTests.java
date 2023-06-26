@@ -18,7 +18,7 @@ public class TestCasesTests extends BaseTest {
 
     @Test
     public void uncheckCheckboxChooseAllTest() {
-        String projectName = "IlyaBobininQA24";
+        String projectName = "AnnaIlyaBobininQA24";
         loginPage.logIn(EMAIL, PASSWORD);
         allProjectsPage.openProjectByName(projectName);
         projectPage.clickTestCasesButton();

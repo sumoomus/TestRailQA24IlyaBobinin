@@ -4,6 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 import pages.*;
@@ -13,17 +14,20 @@ import java.time.Duration;
 
 @Listeners({InvokedListener.class})
 public abstract class BaseTest {
-    private final static String URL = "https://ibqa24.testrail.io/";
     protected final static String EMAIL = "cummbin0@gmail.com";
     protected final static String PASSWORD = "L@malover7";
+    private final static String URL = "https://ibqa24.testrail.io/";
     protected WebDriver driver;
+    protected WebDriverWait wait;
     protected LoginPage loginPage;
     protected AllProjectsPage allProjectsPage;
     protected AddTestCasePage addTestCasePage;
     protected ProjectPage projectPage;
     protected TestCasesPage testCasesPage;
     protected AddTestRunPage addTestRunPage;
-    protected TestCaseInfoPage testCaseInfoPage;
+    protected AddMilestonePage addMilestonePage;
+
+    protected MilestonesPage milestonesPage;
 
     @Parameters({"browserName"})
     @BeforeClass(alwaysRun = true)
@@ -44,7 +48,8 @@ public abstract class BaseTest {
         addTestCasePage = new AddTestCasePage(driver);
         testCasesPage = new TestCasesPage(driver);
         addTestRunPage = new AddTestRunPage(driver);
-        testCaseInfoPage = new TestCaseInfoPage(driver);
+        addMilestonePage = new AddMilestonePage(driver);
+        milestonesPage = new MilestonesPage(driver);
 
     }
 
@@ -61,7 +66,7 @@ public abstract class BaseTest {
     @AfterMethod(alwaysRun = true)
     public void clearCookies() {
         driver.manage().deleteAllCookies();
-        ((JavascriptExecutor) driver).executeScript(String.format("window.localStorage.clear();"));
-        ((JavascriptExecutor) driver).executeScript(String.format("window.sessionStorage.clear();"));
+        ((JavascriptExecutor) driver).executeScript("window.localStorage.clear();");
+        ((JavascriptExecutor) driver).executeScript("window.sessionStorage.clear();");
     }
 }
